@@ -1,4 +1,4 @@
-const posts = [
+const elencoPosts = [
     {
         "id": 1,
         "content": "Placeat libero ipsa nobis ipsum quibusdam quas harum ut. Distinctio minima iusto. Ad ad maiores et sint voluptate recusandae architecto. Et nihil ullam aut alias.",
@@ -59,13 +59,21 @@ const posts = [
 
 const container = document.getElementById('container')
 container.innerHTML= '';
+elencoDati(elencoPosts);
 
 
+const btnLike = document.getElementsByClassName('likes__cta')
+btnLike.addEventListener('click',function(){
+    console.log(btnLike)
+});
+
+
+function elencoDati(posts){
 for (let i=0 ; i<posts.length ; i++){
     let post = document.createElement('div');
-    console.log(post)
+    
     post.className= 'post';
-    console.log(post)
+ 
     post.innerHTML= `
        
         <div class="post__header">
@@ -86,7 +94,7 @@ for (let i=0 ; i<posts.length ; i++){
         </div>
         <div class="post__footer">
                 <div class="likes js-likes">
-                    <div class="likes__cta">
+                    <div class="likes__cta ">
                         <a class="like-button  js-like-button" href="#" data-postid="1">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
@@ -100,8 +108,9 @@ for (let i=0 ; i<posts.length ; i++){
                   
 
         `;
-        console.log(post)
+       
      container.append(post);  
 
 }
 
+}
