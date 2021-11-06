@@ -56,61 +56,84 @@ const elencoPosts = [
     }
 ];
 
+// inizio programma
 
-const container = document.getElementById('container')
+const container = document.getElementById('container');
+
+let post = document.querySelector('.post');
+
 container.innerHTML= '';
 elencoDati(elencoPosts);
 
 
-const btnLike = document.getElementsByClassName('likes__cta')
-btnLike.addEventListener('click',function(){
-    console.log(btnLike)
-});
+const btnLike = document.getElementsByClassName('like-button');
+const counterLike = document.getElementsByClassName('js-likes-counter');
 
+let btnLikeHeld = [];
+for(let i=0; i<btnLike;  i++){
+   btnLikeHeld[i] = false;
+}
+
+
+for (let i = 0 ; i < btnLike.length; i++){  
+    btnLike[i].addEventListener('click',function(){
+     if(!btnLikeHeld[i]){
+        elencoPosts[i].likes +=1;
+        counterLike[i].innerHTML = elencoPosts[i].likes;
+        btnLike[i].style =`
+           color:aquamarine;
+           pointer-events:none;
+           `; 
+     } 
+    });  
+}
+ 
+
+
+//prototipo funzione 
 
 function elencoDati(posts){
-for (let i=0 ; i<posts.length ; i++){
-    let post = document.createElement('div');
+  for (let i=0 ; i<posts.length ; i++){
+        
+    post = document.createElement('div');
+    post.className='post';
     
-    post.className= 'post';
- 
     post.innerHTML= `
-       
-        <div class="post__header">
-            <div class="post-meta">                    
-                <div class="post-meta__icon">
-                    <img class="profile-pic" src="${posts[i].author.image}" alt="${posts[i].author.name}">                    
-                </div>
-                <div class="post-meta__data">
-                    <div class="post-meta__author">${posts[i].author.name}</div>
-                    <div class="post-meta__time">                <div class="post-meta__author">${posts[i].created}</div>
-                    </div>
-                </div>                    
-            </div>
-        </div>
-        <div class="post__text">${posts[i].content}</div>
-        <div class="post__image">
-            <img src="${posts[i].media}" alt="">
-        </div>
-        <div class="post__footer">
-                <div class="likes js-likes">
-                    <div class="likes__cta ">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
-                            <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                            <span class="like-button__label">Mi Piace</span>
-                        </a>
-                    </div>
-                    <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
-                    </div>
-                </div> 
-            </div>            
-                  
-
-        `;
-       
-     container.append(post);  
-
+          
+           <div class="post__header">
+               <div class="post-meta">                    
+                   <div class="post-meta__icon">
+                       <img class="profile-pic" src="${posts[i].author.image}" alt="${posts[i].author.name}">                    
+                   </div>
+                   <div class="post-meta__data">
+                       <div class="post-meta__author">${posts[i].author.name}</div>
+                       <div class="post-meta__time">                <div class="post-meta__author">${posts[i].created}</div>
+                       </div>
+                   </div>                    
+               </div>
+           </div>
+           <div class="post__text">${posts[i].content}</div>
+           <div class="post__image">
+               <img src="${posts[i].media}" alt="">
+           </div>
+           <div class="post__footer">
+                   <div class="likes js-likes">
+                       <div class="likes__cta ">
+                           <a class="like-button  js-like-button"  data-postid="1">
+                               <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                               <span class="like-button__label">Mi Piace</span>
+                           </a>
+                       </div>
+                       <div class="likes__counter">
+                           Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone
+                       </div>
+                   </div> 
+               </div>            
+                     
+   
+           `;
+          
+    container.append(post);  
+  }
 }
-
-}
+   
